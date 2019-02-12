@@ -1,0 +1,10 @@
+mixin landing-testimonial-item(data)
+  div.testimonial
+    div.testimonial--testimonial
+      p= data.testimonial
+    div.testimonial--image
+      img(src=data.image alt=data.name)
+    div.testimonial--name
+      h3= data.name
+    div.testimonial--postion
+      p= data.position

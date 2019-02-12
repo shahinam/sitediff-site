@@ -1,0 +1,30 @@
+doctype html  
+html(lang='en')  
+  head
+    block title
+      title SiteDiff
+
+    link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Ubuntu:400,700" rel="stylesheet")
+    link(rel='stylesheet' href='./css/styles.css')
+    block styles
+      link(rel='stylesheet' href='#')
+
+  body
+    header#header
+      div.container
+        block header
+          include header
+
+    main#content
+      block content
+        div.container
+          p Put some content in here.
+
+    footer#footer
+      div.container
+        block footer
+          include footer
+
+    block scripts
+      script(src='./js/vendor/jquery.min.js')
+      script(src='./js/vendor/bootstrap.min.js')

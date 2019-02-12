@@ -1,0 +1,37 @@
+{
+  "name": "sitediff",
+  "version": "1.0.0",
+  "description": "EvolvingWeb SiteDiff static pages.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evolvingweb/sitediff-public-website.git"
+  },
+  "keywords": [
+    "evolvingweb",
+    "sitediff",
+    "renan"
+  ],
+  "author": "Renan Ferreira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evolvingweb/sitediff-public-website/issues"
+  },
+  "homepage": "https://github.com/evolvingweb/sitediff-public-website#readme",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-connect": "^5.7.0",
+    "gulp-html-prettify": "0.0.1",
+    "gulp-pug": "^4.0.1",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.4",
+    "node-sass": "^4.11.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.0",
+    "jquery": "^3.3.1"
+  }
+}

@@ -1,0 +1,8 @@
+mixin landing-features-item(data)
+  div.features
+    div.features--icon
+      img(src=data.icon alt=data.title)
+    div.features--title
+      h3= data.title
+    div.features--description
+      p= data.description

@@ -1,0 +1,38 @@
+extends includes/base.pug
+
+block title
+  title sitediff - Index
+
+append header
+  section#landing
+    div.row
+      div.col-md-12.col-lg-6
+        div.landing-image
+          include ../images/SiteDiff_Blue.svg
+      div.col-md-12.col-lg-6
+        div.landing-jumbo
+          include includes/landing-block
+
+block content
+  div.container#section-1
+    include mixin/landing-section.pug
+
+    - var image = '../images/programer-green.svg'
+    - var title = 'Detecting differences in code'
+    - var description = 'Rather than only highlight visual differences, Sitediff compares different versions of code highlighting differences and allowing developers and QA testers to understand and correct code regressions before releasing.'
+    +landing-section(image, title, description, true)
+
+  div.container#section-2
+    - var image = '../images/computerleft-mod.svg'
+    - var title = 'Sitediff emphasizes automation'
+    - var description = 'Sitediff automates a big portion of the QA process by automatically crawling the whole site to look for regressions. It applies a rule based refinement process to highlight breaking changes and differentiate them from expected minor variations.'
+    +landing-section(image, title, description, false)
+
+  div.container#features
+    include includes/landing-features
+
+  div.container#testimonials
+    include includes/landing-testimonials
+
+  div.container#cta
+    include includes/landing-cta

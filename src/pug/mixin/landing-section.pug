@@ -1,0 +1,18 @@
+mixin landing-section(image, title, description, changed = false)
+  div.landing-section&attributes(attributes)
+    div.row
+      - var classes = 'col-md-12 col-lg-6'
+      if changed
+        - var first = classes + ' order-lg-2'
+        - var second = classes + ' order-lg-1'
+      else
+        - var first = classes + ' order-lg-1'
+        - var second = classes + ' order-lg-2'
+
+      div(class=first)
+        div.landing-section--text
+          h2.landing-section--text--title= title
+          p.landing-section--text--description= description
+      div(class=second)
+        div.landing-section--image
+          img(src=image alt=title)
