@@ -1,3 +1,256 @@
-.landing {
-  color: red;
+#landing {
+  padding-bottom: 300px;
+  margin-bottom: -250px;
+
+  @include media-breakpoint-up(lg) {
+    margin-bottom: -200px;
+  }
+  .landing-image {
+    svg {
+      width: 100%;
+      height: auto;
+
+      @include media-breakpoint-up(lg) {
+        width: 120%;
+        padding-top: 40px;
+        margin-left: -20%;
+      }
+    }
+  }
+  .landing-jumbo {
+    position: relative;
+    top: 50%;
+    padding: 20px 0;
+    transform: translateY(-50%);
+
+    .jumbotron {
+      margin-bottom: 0;
+      background-color: transparent;
+
+      &-buttons {
+        a {
+          width: 48%;
+          margin-right: 0;
+
+          &:first-child {
+            margin-right: 4%;
+          }
+        }
+      }
+      &-text {
+        letter-spacing: 0;
+        font-weight: 300;
+      }
+    }
+    h2 {  
+      color: $color-white;
+    }
+    p {
+      color: $color-white;
+    }
+  }
+  .landing-triangle {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 300px;
+    width: 100%;
+    background-color: transparent;
+    overflow: hidden;
+
+    span {
+      display: block;
+      position: relative;
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 0;
+        width: 120%;
+        height: 300px;
+        background-color: $color-white;
+        transform: rotate(-8deg);
+        transform-origin: right top 0;
+      }
+    }
+  }
+}
+
+#section-2 {
+  background-color: $color-lightgray;
+
+  .landing-section--image {
+    img {
+      width: 60%;
+    }
+  }
+}
+
+.landing-section {
+  padding: 50px 0;
+
+  &--text {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &--title {
+      margin-bottom: 40px;
+      font-family: $font-ubuntu;
+      font-weight: bold;
+      font-size: 28px;
+      color: $color-darkerblue;
+    }
+    &--description {
+      font-size: 18px;
+      margin-bottom: 40px;
+      color: $color-darkblue;
+    }
+  }
+  &--image {
+    position: relative;
+
+    img {
+      display: block;
+      width: 80%;
+      margin: 0 auto;
+    }
+  }
+}
+
+#features {
+  padding: 50px 0;
+  text-align: center;
+
+  @include media-breakpoint-up(lg) {
+    padding: 80px 0;
+  }
+  h2 {
+    margin-bottom: 40px;
+    color: $color-darkerblue;
+  }
+  .features {
+    margin-bottom: 30px;
+
+    @include media-breakpoint-up(lg) {
+      padding: 0 20px;
+    }
+    &--icon {
+      img {
+        margin-bottom: 30px;
+      }
+    }
+    &--title {
+      h3 {
+        color: $color-darkerblue;
+      }
+    }
+    &--description {
+      p {
+        font-size: 14px;
+        line-height: 24px;
+      }
+    }
+  }
+}
+
+#testimonials {
+  padding-top: 50px;
+  text-align: center;
+  background: linear-gradient(219.83deg, $gradient-color-1 0%, $gradient-color-2 100%);
+
+  @include media-breakpoint-up(lg) {
+    padding: 40px 0;
+  }
+  h2 {
+    display: none;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    color: $color-white;
+    font-size: 42px;
+    letter-spacing: -0.1rem;
+
+    @include media-breakpoint-up(lg) {
+      display: block;
+    }
+  }
+  .testimonial {
+    max-width: 360px;
+    padding: 0 20px;
+    margin: 0 auto 60px auto;
+    color: $color-white;
+
+    &--testimonial {
+      font-size: 16px;
+      line-height: 24px;
+    }
+    &--image {
+      margin: 20px 0;
+    }
+    &--name {
+      h3 {
+        font-size: 16px;
+      }
+    }
+    &--position {
+      p {
+        font-size: 14px;
+        text-transform: uppercase;
+        color: $color-lighterblue;
+      }
+    }
+  }
+}
+
+#cta {
+  .landing-cta {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .jumbotron {
+    padding: 50px 0;
+    margin: 0;
+    background-color: transparent;
+    text-align: center;
+
+    @include media-breakpoint-up(lg) {
+      padding: 80px 0;
+    }
+    &--title {
+      margin-bottom: 30px;
+      font-size: 42px;
+      font-family: $font-sourcesans;
+      color: $color-darkerblue;
+    }
+    &--text {
+      margin-bottom: 35px;
+      font-size: 20px;
+      color: $color-darkblue;
+    }
+    &--buttons {
+      margin-bottom: 10px;
+
+      a {
+        display: inline-block;
+        width: 48%;
+        margin-right: 0;
+        box-shadow: none;
+
+        &:first-child {
+          margin-right: 4%;
+        }
+      }
+      .btn-primary {
+        border: thin solid transparent;
+
+        &:hover {
+          border-color: $color-blue;
+        }
+      }
+      .btn-secondary {
+        border: thin solid $color-blue;
+      }
+    }
+  }
 }
