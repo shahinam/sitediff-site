@@ -11,6 +11,7 @@
     sourcemaps = require('gulp-sourcemaps'),
     pug = require('gulp-pug'),
     prettify = require('gulp-html-prettify'),
+    minify = require('gulp-minify'),
     connect = require('gulp-connect'),
     config = {
       css: {
@@ -19,6 +20,7 @@
         output: './web/css/'
       },
       js: {
+        watch: './src/js/**/*.js',
         input: './src/js/**/*.js',
         output: './web/js/'
       },
@@ -56,6 +58,18 @@
       .pipe(connect.reload());
   });
 
+  gulp.task('js', function() {
+    return gulp.src(config.js.input)
+      .pipe(minify({
+        ext: {
+          src: '.js',
+          min: '.min.js'
+        }
+      }))
+      .pipe(gulp.dest(config.js.output))
+      .pipe(connect.reload());
+  });
+
   gulp.task('vendor', function() {
     return gulp.src(config.vendors)
       .pipe(gulp.dest('./web/js/vendor/'));
@@ -74,13 +88,12 @@
   });
 
   gulp.task('watch', function () {
-    gulp.watch(
-      [config.css.watch, config.html.watch],
-      gulp.series(['css', 'html'])
-    );
+    gulp.watch(config.css.watch, gulp.series(['css']));
+    gulp.watch(config.html.watch, gulp.series(['html']));
+    gulp.watch(config.js.watch, gulp.series(['js']));
   });
 
-  gulp.task('build', gulp.series(['html', 'css', 'vendor', 'assets']));
+  gulp.task('build', gulp.series(['html', 'css', 'js', 'vendor', 'assets']));
 
   gulp.task('default', gulp.series(['build', gulp.parallel(['connect', 'watch'])]));
 
