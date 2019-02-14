@@ -94,7 +94,7 @@
     gulp.watch(config.js.watch, gulp.series(['js']));
   });
 
-  gulp.task('build', gulp.series(['html', 'css', 'js', 'vendor', 'assets']));
+  gulp.task('build', gulp.series(['vendor', 'assets', 'css', 'js', 'html']));
 
   gulp.task('default', gulp.series(['build', gulp.parallel(['connect', 'watch'])]));
 
