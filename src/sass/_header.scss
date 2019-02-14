@@ -43,7 +43,7 @@
       transition: ease-in-out 0.3s all;
     }
   }
-  @include media-breakpoint-down(lg) {
+  @include media-breakpoint-down(md) {
     .navbar-toggler {
       height: 42px;
       padding: 5px;
