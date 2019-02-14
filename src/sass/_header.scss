@@ -43,4 +43,40 @@
       transition: ease-in-out 0.3s all;
     }
   }
+  @include media-breakpoint-down(lg) {
+    .navbar-toggler {
+      height: 42px;
+      padding: 5px;
+      margin: 10px 0;
+      border: none;
+    }
+    .navbar-collapse {
+      position: absolute;
+      right: 0;
+      top: 62px;
+      width: 200px;
+      text-align: right;
+      border-top: 3px solid $color-white;
+      background: linear-gradient(219.83deg, $gradient-color-1 0%, $gradient-color-2 100%);
+      z-index: 1;
+
+      .nav-item {
+        margin: 0 !important;
+      }
+      .navbar-text {
+        display: block;
+      }
+      a {
+        padding: 0 20px !important;
+        margin: 0 !important;
+        transform: ease-in-out .3s all;
+        border-top: none;
+        border-bottom: 2px solid transparent;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+  }
 }
