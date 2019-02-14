@@ -1,5 +1,7 @@
 // Include Bootstrap.
 @import "../../node_modules/bootstrap/scss/bootstrap";
+// Add Swiper compiled CSS (build with LESS).
+@import "../../node_modules/swiper/dist/css/swiper";
 
 @import 'variables';
 @import 'base';
