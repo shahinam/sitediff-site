@@ -6,6 +6,8 @@ html {
 }
 body {
   position: relative;
+  max-width: 100%;
+  overflow: hidden;
   padding-bottom: $footer-hight;
   font-family: $font-ubuntu;
   font-weight: 300;
