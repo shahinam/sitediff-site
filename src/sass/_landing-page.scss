@@ -202,6 +202,23 @@
   .swiper-container {
     width: 100%;
   }
+  .swiper-slide {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    min-height: 100%;
+    height: auto;
+
+    .testimonial {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+    .testimonial--testimonial {
+      flex: 1;
+    }
+  }
   .swiper-button-prev,
   .swiper-button-next {
     @include media-breakpoint-up(lg) {
