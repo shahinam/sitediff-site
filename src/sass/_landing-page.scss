@@ -3,7 +3,11 @@
   margin-bottom: -250px;
 
   @include media-breakpoint-up(lg) {
-    margin-bottom: -200px;
+    margin-bottom: -220px;
+  }
+  @include media-breakpoint-up(xl) {
+    padding-bottom: 250px;
+    margin-bottom: -240px;
   }
   .landing-image {
     svg {
@@ -54,11 +58,19 @@
     display: block;
     position: absolute;
     right: 0;
-    width: 1000%;
+    bottom: 0;
+    width: 150%;
     height: 300px;
     background-color: $color-white;
     transform: rotate(-8deg);
     transform-origin: right top 0;
+
+    @include media-breakpoint-up(xl) {
+      transform: rotate(-6deg);
+    }
+    @include media-breakpoint-up('xxl', ('xxl': 2500px)) {
+      transform: rotate(-3deg);
+    }
   }
 }
 
