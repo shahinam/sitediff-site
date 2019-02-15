@@ -69,9 +69,10 @@
       a {
         padding: 0 20px !important;
         margin: 0 !important;
-        transform: ease-in-out .3s all;
+        transition: ease-in-out .3s all;
         border-top: none;
         border-bottom: 2px solid transparent;
+        transform: rotate(0);
 
         &:hover {
           background-color: rgba(0, 0, 0, 0.1);
