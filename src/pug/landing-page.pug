@@ -18,17 +18,17 @@ block content
 
   div#section-1
     .container
-      - var image = '../images/programer-green.svg'
       - var title = 'Detecting differences in code'
-      - var description = 'Rather than only highlight visual differences, Sitediff compares different versions of code highlighting differences and allowing developers and QA testers to understand and correct code regressions before releasing.'
-      +landing-section(image, title, description, false)
+      - var description = 'Rather than only highlight visual differences, SiteDiff compares different versions of code highlighting differences and allowing developers and QA testers to understand and correct code regressions before releasing.'
+      +landing-section(title, description, false)
+        include ../images/programer-green.svg
 
   div#section-2
     .container
-      - var image = '../images/computerleft-mod.svg'
-      - var title = 'Sitediff emphasizes automation'
-      - var description = 'Sitediff automates a big portion of the QA process by automatically crawling the whole site to look for regressions. It applies a rule based refinement process to highlight breaking changes and differentiate them from expected minor variations.'
-      +landing-section(image, title, description, true)
+      - var title = '<span aria-label="site diff">Sitediff</span> emphasizes automation'
+      - var description = 'SiteDiff automates a big portion of the QA process by automatically crawling the whole site to look for regressions. It applies a rule based refinement process to highlight breaking changes and differentiate them from expected minor variations.'
+      +landing-section(title, description, true)
+        include ../images/computerleft-mod.svg
 
   div#features
     .container

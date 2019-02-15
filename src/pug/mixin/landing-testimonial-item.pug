@@ -3,8 +3,9 @@ mixin landing-testimonial-item(data)
     div.testimonial--testimonial
       p= data.testimonial
     div.testimonial--image
-      img(src=data.image alt=data.name)
+      - var alt = 'Image of ' + data.name
+      img(src=data.image alt=alt)
     div.testimonial--name
       h3= data.name
     div.testimonial--position
-      p= data.position
+      p !{data.position}
