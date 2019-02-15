@@ -12,7 +12,7 @@ Task: Add mobile menu with hamburger icon.
 ### Swiper testimonials
 Task: Make testimonials a slider on mobile with swipe capabilities using preferably SwiperJS.
 - Research tool on website `http://idangero.us/swiper/`.
-- Download it using NPM with command `npm install --save-dev swiper`.
+- Download it using NPM with command `npm install --save swiper`.
 - Add it to the gulp vendor folder configuration so it can copy the javascript file over to `web/js/vendor` folder.
 - Import Swiper CSS into `styles.scss`. The tool uses LESS and because of this we can only import the compiled CSS.
 - Check tool options if we can configure, enable and disable it using CSS breakpoints. That's possible.
@@ -30,8 +30,6 @@ Task: Change the diagonal section to not use extra markup elements and make it w
 Task: Testimonial sections had some javascript to make description equal height. Make it flex-box.
 - This was not possible due to Swiper styles already using flexbox for the sliders. A simplification was made in this functionality, removed the breakpoint since equal height is needed for all screen sizes.
 
-## 14/02/2019
-
 ### Accessibility
 Task: Make the website more Accessible.
 - Installed Chrome extension Siteimprove Accessibility Checker.
@@ -39,6 +37,24 @@ Task: Make the website more Accessible.
 - Research a way to make inline SVG's more accessible. Found a solution on `https://css-tricks.com/accessible-svgs/` that consists in adding a title element in the SVG markup.
 - Implementing level AA and AAA and checking warnings. All passed.
 
+## 14/02/2019
+
+### Fixes
+- Gulp had an error because of missing Swiper JS file on first install. I removed it and installed again saving on normal dependencies instead of develop dependencies. That fixed the issue.
+- Menu with item flickering. That's a Chrome specific bug related to border-bottom and transition properties. My solution was to add a zero rotation to the element. Posted it on `https://stackoverflow.com/questions/9708570/chrome-css3-border-bottom-transition-bug`.
+- Body width overflowing causing a white bar at the right of the site. Fixed hiding the body overflow.
+- iPhone responsive bug fixed with metatag `<meta name="viewport" content="width=device-width">`. Added some other nice-to-have metatags.
+- Swiper had a problem with navigation arrows. This was fixed adding options to describe the classes of the navigation arrows elements. Also removed equal height from JS and implemented it with flexbox and Swiper equalheight option.
+
+### Accessibility (continuation)
+- Install Chrome extension ChromeVox, an text to speach accessibility tool.
+- Tested the site with the tool and found some areas that could be improved:
+- - Changed all SVG added with img tag to inline (use title of SVG as title and better performance).
+- - The tool name "SiteDiff" read by the tool was weird because there's no space. Added span's with `aria-label` with the name with space. This don't work with text inside paragraphs.
+- - Changed some fonts colors to better contrast with background.
+
+### Cross-browser testing
+- TODO
+
 ### Improving website efficiency
-Task:
 - TODO
