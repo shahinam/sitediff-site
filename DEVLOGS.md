@@ -53,6 +53,12 @@ Task: Make the website more Accessible.
 - - The tool name "SiteDiff" read by the tool was weird because there's no space. Added span's with `aria-label` with the name with space. This don't work with text inside paragraphs.
 - - Changed some fonts colors to better contrast with background.
 
+## 15/02/2019
+
+### Fixes
+- SVG images had some missing colors. Fixed by downloading a newer version of the asset on InVision.
+- 
+
 ### Cross-browser testing
 - TODO
 
