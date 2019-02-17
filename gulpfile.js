@@ -12,6 +12,8 @@
     pug = require('gulp-pug'),
     prettify = require('gulp-html-prettify'),
     minify = require('gulp-minify'),
+    svgmin = require('gulp-svgmin'),
+    imagemin = require('gulp-imagemin'),
     connect = require('gulp-connect'),
     config = {
       css: {
@@ -42,6 +44,7 @@
 
   sass.compiler = require('node-sass');
 
+  // PUG to HTML
   gulp.task('html', function() {
     return gulp.src(config.html.input)
       .pipe(pug({}))
@@ -50,6 +53,7 @@
       .pipe(connect.reload());
   });
 
+  // SASS to CSS
   gulp.task('css', function() {
     return gulp.src(config.css.input)
       .pipe(sourcemaps.init())
@@ -59,6 +63,7 @@
       .pipe(connect.reload());
   });
 
+  // Javascript
   gulp.task('js', function() {
     return gulp.src(config.js.input)
       .pipe(minify({
@@ -70,17 +75,25 @@
       .pipe(gulp.dest(config.js.output))
       .pipe(connect.reload());
   });
-
   gulp.task('vendor', function() {
     return gulp.src(config.vendors)
       .pipe(gulp.dest('./web/js/vendor/'));
   });
 
-  gulp.task('assets', function() {
-    return gulp.src(config.images.input)
+  // Images
+  gulp.task('assets-svg', function() {
+    return gulp.src(config.images.input + '.svg')
+      .pipe(svgmin())
       .pipe(gulp.dest(config.images.output));
   });
+  gulp.task('assets-png', function() {
+    return gulp.src(config.images.input + '@(.png|.jpg|.jpeg)')
+      .pipe(imagemin())
+      .pipe(gulp.dest(config.images.output));
+  });
+  gulp.task('assets', gulp.parallel(['assets-svg', 'assets-png']));
 
+  // Serve and reload
   gulp.task('connect', function() {
     connect.server({
       root: 'web',
