@@ -6,11 +6,13 @@ html(lang='en')
     meta(name="description", content="Sitediff is the ideal tool to verify security updates and other upgrades. With its advanced site crawler and an easy to use web interface, compare before and after versions of your website in no time for unwanted discrepancies.")
     meta(name="author", content="EvolvingWeb")
 
+    include favicons
+
     block title
       title SiteDiff
 
     link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700|Ubuntu:300,400,700" rel="stylesheet")
-    link(rel='stylesheet' href='./css/styles.css')
+    link(rel='stylesheet' href='/css/styles.css')
     block styles
       //- link(rel='stylesheet' href='#')
 
@@ -32,7 +34,7 @@ html(lang='en')
           include footer
 
     block scripts
-      script(src='./js/vendor/jquery.min.js')
-      script(src='./js/vendor/bootstrap.min.js')
-      script(src='./js/vendor/swiper.min.js')
-      script(src='./js/script.min.js')
+      script(src='/js/vendor/jquery.min.js')
+      script(src='/js/vendor/bootstrap.min.js')
+      script(src='/js/vendor/swiper.min.js')
+      script(src='/js/script.min.js')

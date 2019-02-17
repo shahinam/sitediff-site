@@ -1,7 +1,4 @@
 /*jslint node: true */
-/*global
-    gulp, window, document
-*/
 
 (function () {
   'use strict';
@@ -14,38 +11,67 @@
     minify = require('gulp-minify'),
     svgmin = require('gulp-svgmin'),
     imagemin = require('gulp-imagemin'),
+    favicons = require('favicons').stream,
     connect = require('gulp-connect'),
-    config = {
-      css: {
-        watch: './src/sass/**/*.scss',
-        input: './src/sass/styles.scss',
-        output: './web/css/'
-      },
-      js: {
-        watch: './src/js/**/*.js',
-        input: './src/js/**/*.js',
-        output: './web/js/'
-      },
-      html: {
-        watch: './src/pug/**/*.pug',
-        input: './src/pug/*.pug',
-        output: './web/'
-      },
-      images: {
-        input: './src/images/**/*',
-        output: './web/images/',
-      },
-      vendors: [
-        'node_modules/jquery/dist/jquery.min.js',
-        'node_modules/bootstrap/dist/js/bootstrap.min.js',
-        'node_modules/swiper/dist/js/swiper.min.js'
-      ]
-    };
+    config,
+    favicon_config;
+
+  // Configurations
+  config = {
+    css: {
+      watch: './src/sass/**/*.scss',
+      input: './src/sass/styles.scss',
+      output: './web/css/'
+    },
+    js: {
+      watch: './src/js/**/*.js',
+      input: './src/js/**/*.js',
+      output: './web/js/'
+    },
+    html: {
+      watch: './src/pug/**/*.pug',
+      input: './src/pug/*.pug',
+      output: './web/'
+    },
+    images: {
+      input: './src/images/**/*',
+      output: './web/images/'
+    },
+    vendors: [
+      'node_modules/jquery/dist/jquery.min.js',
+      'node_modules/bootstrap/dist/js/bootstrap.min.js',
+      'node_modules/swiper/dist/js/swiper.min.js'
+    ]
+  };
+  favicon_config = {
+    appName: 'SiteDiff - Speed up your QA process with automated testing',
+    appShortName: 'SiteDiff',
+    appDescription: 'Sitediff is the ideal tool to verify security updates and other upgrades. With its advanced site crawler and an easy to use web interface, compare before and after versions of your website in no time for unwanted discrepancies.',
+    developerName: 'EvolvingWeb',
+    developerURL: 'http://evolvingweb.ca/',
+    background: '#383FDA',
+    path: '/images/favicons/',
+    url: 'http://sitediff.com/',
+    display: 'standalone',
+    orientation: 'portrait',
+    scope: '/',
+    start_url: '/?homescreen=1',
+    version: 1.0,
+    logging: false,
+    html: 'index.html',
+    pipeHTML: true,
+    replace: true
+  };
 
   sass.compiler = require('node-sass');
 
-  // PUG to HTML
-  gulp.task('html', function() {
+  /**
+   * HTML.
+   *
+   * - Compile PUG into HTML.
+   * - Prettify HTML output.
+   */
+  gulp.task('html', function () {
     return gulp.src(config.html.input)
       .pipe(pug({}))
       .pipe(prettify({indent_char: ' ', indent_size: 2}))
@@ -53,8 +79,13 @@
       .pipe(connect.reload());
   });
 
-  // SASS to CSS
-  gulp.task('css', function() {
+  /**
+   * CSS.
+   *
+   * - Compile SASS into CSS.
+   * - Create sourcemaps.
+   */
+  gulp.task('css', function () {
     return gulp.src(config.css.input)
       .pipe(sourcemaps.init())
       .pipe(sass().on('error', sass.logError))
@@ -63,8 +94,12 @@
       .pipe(connect.reload());
   });
 
-  // Javascript
-  gulp.task('js', function() {
+  /**
+   * Javascript.
+   *
+   * - Minify all scripts.
+   */
+  gulp.task('js-custom', function () {
     return gulp.src(config.js.input)
       .pipe(minify({
         ext: {
@@ -75,26 +110,39 @@
       .pipe(gulp.dest(config.js.output))
       .pipe(connect.reload());
   });
-  gulp.task('vendor', function() {
+  gulp.task('js-vendor', function () {
     return gulp.src(config.vendors)
-      .pipe(gulp.dest('./web/js/vendor/'));
+      .pipe(gulp.dest(config.js.output + '/vendor/'));
   });
+  gulp.task('js', gulp.parallel(['js-custom', 'js-vendor']));
 
-  // Images
-  gulp.task('assets-svg', function() {
+  /**
+   * Assets.
+   *
+   * - Minify image and SVG assets.
+   * - Create favicons.
+   */
+  gulp.task('assets-svg', function () {
     return gulp.src(config.images.input + '.svg')
       .pipe(svgmin())
       .pipe(gulp.dest(config.images.output));
   });
-  gulp.task('assets-png', function() {
+  gulp.task('assets-png', function () {
     return gulp.src(config.images.input + '@(.png|.jpg|.jpeg)')
       .pipe(imagemin())
       .pipe(gulp.dest(config.images.output));
   });
-  gulp.task('assets', gulp.parallel(['assets-svg', 'assets-png']));
+  gulp.task('assets-favicon', function () {
+    return gulp.src(config.images.input + '.fav')
+      .pipe(favicons(favicon_config))
+      .pipe(gulp.dest(config.images.output + '/favicons/'));
+  });
+  gulp.task('assets', gulp.parallel(['assets-svg', 'assets-png', 'assets-favicon']));
 
-  // Serve and reload
-  gulp.task('connect', function() {
+  /**
+   * Build, serve and watch.
+   */
+  gulp.task('connect', function () {
     connect.server({
       root: 'web',
       livereload: true
@@ -107,7 +155,7 @@
     gulp.watch(config.js.watch, gulp.series(['js']));
   });
 
-  gulp.task('build', gulp.series(['vendor', 'assets', 'css', 'js', 'html']));
+  gulp.task('build', gulp.series(['assets', 'css', 'js', 'html']));
 
   gulp.task('default', gulp.series(['build', gulp.parallel(['connect', 'watch'])]));
 
