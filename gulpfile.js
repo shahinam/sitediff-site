@@ -1,18 +1,26 @@
 /*jslint node: true */
+/*global log */
 
 (function () {
   'use strict';
 
   var gulp = require('gulp'),
+    rename = require("gulp-rename"),
     sass = require('gulp-sass'),
+    postcss = require('gulp-postcss'),
+    autoprefixer = require('autoprefixer'),
+    flexbugs = require('postcss-flexbugs-fixes'),
+    uncss = require('postcss-uncss'),
     sourcemaps = require('gulp-sourcemaps'),
     pug = require('gulp-pug'),
+    htmlmin = require('gulp-htmlmin'),
     prettify = require('gulp-html-prettify'),
     minify = require('gulp-minify'),
     svgmin = require('gulp-svgmin'),
     imagemin = require('gulp-imagemin'),
     favicons = require('favicons').stream,
     connect = require('gulp-connect'),
+    ngrok = require('ngrok'),
     config,
     favicon_config;
 
@@ -74,8 +82,11 @@
   gulp.task('html', function () {
     return gulp.src(config.html.input)
       .pipe(pug({}))
-      .pipe(prettify({indent_char: ' ', indent_size: 2}))
+      .pipe(htmlmin({ collapseWhitespace: true }))
       .pipe(gulp.dest(config.html.output))
+      .pipe(prettify({indent_char: ' ', indent_size: 2}))
+      .pipe(rename({suffix: '-pretty'}))
+      .pipe(gulp.dest(config.html.output + '/pretty/'))
       .pipe(connect.reload());
   });
 
@@ -86,9 +97,19 @@
    * - Create sourcemaps.
    */
   gulp.task('css', function () {
+    var plugins = [
+        autoprefixer(['cover 99.5%']),
+        flexbugs(),
+        uncss({
+          html: [config.html.output + '/*.html'],
+          htmlroot: './web/',
+          ignpre: ['swiper-']
+        })
+      ];
     return gulp.src(config.css.input)
       .pipe(sourcemaps.init())
       .pipe(sass().on('error', sass.logError))
+      .pipe(postcss(plugins))
       .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest(config.css.output))
       .pipe(connect.reload());
@@ -155,7 +176,13 @@
     gulp.watch(config.js.watch, gulp.series(['js']));
   });
 
-  gulp.task('build', gulp.series(['assets', 'css', 'js', 'html']));
+  gulp.task('online', async function () {
+    const url = await ngrok.connect(8080);
+    console.log('Serving website at ' + url);
+    return url;
+  });
+
+  gulp.task('build', gulp.series(['assets', 'html', 'js', 'css']));
 
   gulp.task('default', gulp.series(['build', gulp.parallel(['connect', 'watch'])]));
 

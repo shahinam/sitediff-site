@@ -12,7 +12,7 @@
   .landing-image {
     svg {
       width: 100%;
-      height: auto;
+      height: initial;
 
       @include media-breakpoint-up(lg) {
         width: 120%;
@@ -23,10 +23,12 @@
   }
   .landing-jumbo {
     position: relative;
-    top: 50%;
     padding: 20px 0;
-    transform: translateY(-50%);
 
+    @include media-breakpoint-up(lg) {
+      top: 50%;
+      transform: translateY(-50%);
+    }
     .jumbotron {
       margin-bottom: 0;
       background-color: transparent;
@@ -80,6 +82,7 @@
   .landing-section--image {
     svg {
       width: 60%;
+      height: 60%;
     }
   }
 }
@@ -111,6 +114,7 @@
     svg {
       display: block;
       width: 80%;
+      height: 80%;
       margin: 0 auto;
     }
   }

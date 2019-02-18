@@ -49,18 +49,88 @@ Task: Make the website more Accessible.
 ### Accessibility (continuation)
 - Install Chrome extension ChromeVox, an text to speach accessibility tool.
 - Tested the site with the tool and found some areas that could be improved:
-- - Changed all SVG added with img tag to inline (use title of SVG as title and better performance).
-- - The tool name "SiteDiff" read by the tool was weird because there's no space. Added span's with `aria-label` with the name with space. This don't work with text inside paragraphs.
-- - Changed some fonts colors to better contrast with background.
+  - Changed all SVG added with img tag to inline (use title of SVG as title and better performance).
+  - The tool name "SiteDiff" read by the tool was weird because there's no space. Added span's with `aria-label` with the name with space. This don't work with text inside paragraphs.
+  - Changed some fonts colors to better contrast with background.
 
 ## 15/02/2019
 
 ### Fixes
-- SVG images had some missing colors. Fixed by downloading a newer version of the asset on InVision.
-- 
+- SVG images had some missing colors. Fixed by downloading a different version of the asset on InVision.
+
+### Favicon
+- Edited the logo SVG image using InkScape to make it bigger with still vector so we don't lose quality. Cropped the logo image only,saved as PNG 250x250px as `favicon.fav`.
+- Added Favicons plugin `npm install --save-dev favicons`.
+- Configure a Gulp task to generate favicons.
+- Created a PUG file based on the resulting `index.html` from Favicons to include all new resources to our site.
 
 ### Cross-browser testing
-- TODO
+- Check browser support used technologies: Bootstrap 4, SwiperJS, SVG, Flexbox.
+  - IE 10+
+  - Opera 12.1+
+  - Safari 7+
+  - Chrome 21+
+  - Firefox 28+
+- Browsers:
+  - Safari 7-9: Flexbox not working. Fixed by adding Gulp PostCSS `npm install --save-dev gulp-postcss` with plugins Autoprefix (www.npmjs.com/package/autoprefixer) and Flexbug Fixes (www.npmjs.com/package/postcss-flexbugs-fixes).
+  - IE 10-11: Banner SVG image was small. It was not working because of `height: auto;` in the element. Fixed by changing it to `height: initial;`.
+  - TODO - IE 10: Swiper not working.
+- Devices: iPhone 6/7/8 Plus/X, Samsung Galaxy S8/S9, iPad 4/PRO 9.7/PRO 12.9
+  - iPhone 7: Extra space above and below sections SVG. Fixed by setting a percentage height along with the already defined width.
+  - iPad 4: Banner text dislocated. Fixed by applying a media query to the top and translate proprieties so they only take place in large screens.
 
 ### Improving website efficiency
-- TODO
+
+#### Previously implemented:
+- Contact all CSS file into one, all included in `styles.scss` to reduce page requests.
+- Javascript files at the end of markup body to prevent blocking page rendering.
+- Use inline SVG to reduce page requests.
+
+#### Implemented improvements
+- Minify images with Gulp plugins:
+  - Install and setup PNG/JPG minifier `npm install --save-dev gulp-minify`. This reduced about 6.5% of the files sizes (total 28.5kb to 26.6kb).
+  - Install and setup SVG minifier `npm install --save-dev gulp-svgmin`. This reduced about 60.0% of the files sizes (total 705kb to 282kb).
+- Reduce CSS size:
+  - Install and setup Gulp UnCSS `npm install --save-dev postcss-uncss` plugin for Gulp PostCSS. This tool removes unnecessary CSS based on the HTML/JS. This required some changes in the order of build task for Gulp because now we need the HTML to be available before the CSS.
+  - Right now it's work by checking all `.html` files in the web folder and creating a single reduced `style.css` for all.
+  - File sizes reduced more than 85% (324kb to 40kb).
+  - This could be improved by creating one `.css` file for each HTML, making sure only CSS needed by the page would be loaded.
+- Reduce HTML sizes:
+  - Install and setup Gulp tool to minify HTML `npm install --save-dev htmlmin`.
+  - Added a new folder `web/pretty/` to put nicely formatted HTML. The root will have minified version.
+  - This reduced the size of `landing-page.html` about 5% (755kb to 710kb).
+
+#### Page Speed Insights
+- In order to use the Google tool PSI, I've added a NPM plugin to serve local sites to the web called Ngrok `npm install --save-dev ngrok` and set it up on a Gulp task `gulp online`. This will give us an web accessible URL to our local site and thus allowing us to use PSI and other online tools to check the site performance.
+- Results:
+  - Important (in red):
+    1. Enable text compression. **server task**
+    2. Reduce server response times (TTFB). **server task**
+    3. Ensure text remains visible during webfont load.
+      - This could be achieved using property `font-display` of `@font-face`. But since we're using Google Fonts, this is not possible without losing all benefits of this service (cross-browser, cache, etc).
+  - Notices (in yellow):
+    1. Eliminate render-blocking resources.
+    2. Defer offscreen images.
+    3. Avoid an excessive DOM size.
+    4. Minimize Critical Requests Depth.
+  - Most important passed (in green):
+    1. Properly size images.
+    2. Minify CSS.
+    3. Minify JavaScript.
+    4. Defer unused CSS.
+    5. Efficiently encode images.
+    6. Serve images in next-gen formats.
+    7. Preconnect to required origins.
+    8. Preload key requests.
+    9. Avoids enormous network payloads.
+    10. Uses efficient cache policy on static assets.
+    11. JavaScript execution time.
+    12. Minimizes main-thread work.
+#### Possible future improvements (not implemented):
+  - Concat all JS into one file (gulp-concat).
+  - Make a sprite with all PNG/JPG images to reduce page requests.
+  - SVG files have a lot of unnecessary code that could be removed.
+  - Above mentioned CSS reduced file for each page (gulp-uncss).
+  - Make the first visible sections of the site with inline CSS.
+  - Lazyload testimonials images.
+  - Load only JS vendor that will be used, specially Bootstrap.
