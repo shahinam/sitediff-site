@@ -1,4 +1,4 @@
-# sitediff-public-website
+# sitediff-site
 
 ## Setup
 
