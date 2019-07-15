@@ -1,0 +1,43 @@
+extends includes/base.pug
+
+block title
+  title SiteDiff
+
+append header
+  section#landing(role="banner")
+    div.row
+      div.col-md-12.col-lg-7
+        div.landing-image
+          include ../images/SiteDiff_Blue.svg
+      div.col-md-12.col-lg-5
+        div.landing-jumbo
+          include includes/landing/landing-block
+
+block content
+  include mixin/landing-section.pug
+
+  div#section-1
+    .container
+      - var title = 'Detecting differences in code'
+      - var description = 'Rather than only highlight visual differences, SiteDiff compares different versions of code highlighting differences and allowing developers and QA testers to understand and correct code regressions before releasing.'
+      +landing-section(title, description, false)
+        include ../images/programer-green.svg
+
+  div#section-2
+    .container
+      - var title = '<span aria-label="site diff">Sitediff</span> emphasizes automation'
+      - var description = 'SiteDiff automates a big portion of the QA process by automatically crawling the whole site to look for regressions. It applies a rule based refinement process to highlight breaking changes and differentiate them from expected minor variations.'
+      +landing-section(title, description, true)
+        include ../images/computerleft-mod.svg
+
+  div#features
+    .container
+      include includes/landing/landing-features
+
+  div#testimonials
+    .container
+      include includes/landing/landing-testimonials
+
+  div#cta
+    .container
+      include includes/landing/landing-cta
