@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "name": "SiteDiff - Speed up your QA process with automated testing",
+  "description": "Sitediff is the ideal tool to verify security updates and other upgrades. With its advanced site crawler and an easy to use web interface, compare before and after versions of your website in no time for unwanted discrepancies.",
+  "icons": {
+    "60": "/images/favicons/firefox_app_60x60.png",
+    "128": "/images/favicons/firefox_app_128x128.png",
+    "512": "/images/favicons/firefox_app_512x512.png"
+  },
+  "developer": {
+    "name": "EvolvingWeb",
+    "url": "http://evolvingweb.ca/"
+  }
+}
